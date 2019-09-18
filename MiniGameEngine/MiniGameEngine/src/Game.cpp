@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Game.h"
+#include "Constants.h"
 
 Game::Game() {
 	this->isRunning =  false;
@@ -50,7 +51,14 @@ void Game::processInput() {
 	}
 }
 void Game::update() {
-
+	// wait until 16ms until ellapsed since last frame
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), ticksLastFrame + FRAME_TARGET_TIME));
+	// Delta time is the diference in ticks from last frame in seconds
+	float deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
+	//clamp delta time to maximum value
+	deltaTime = (deltaTime > 0.005f) ? 0.05f : deltaTime;
+	// sets the ticks for the current frame to be used in the next pass
+	ticksLastFrame = SDL_GetTicks();
 }
 void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
