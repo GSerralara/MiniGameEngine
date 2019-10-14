@@ -1,18 +1,19 @@
 #include <iostream>
-#include "Game.h"
 #include "Constants.h"
+#include "Game.h"
 
-//change to main() when it's posible
-int wmain() {
-	Game *game = new Game();
+int wmain(int argc, char *args[]) {
+    Game *game = new Game();
 
-	game->initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    game->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	while (game->isRunning) {
-		game->processInput();
-		game->update();
-		game->render();
-	}
-	game->destroy();
-	return 0;
+    while (game->IsRunning()) {
+        game->ProcessInput();
+        game->Update();
+        game->Render();
+    }
+
+    game->Destroy();
+
+    return 0;
 }

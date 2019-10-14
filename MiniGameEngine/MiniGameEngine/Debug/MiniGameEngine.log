@@ -1,4 +1,6 @@
-﻿  Game.cpp
+﻿  Entity.cpp
+  EntityManager.cpp
+  Game.cpp
   Main.cpp
   Generando código...
   MiniGameEngine.vcxproj -> C:\Users\Gonzalo\Documents\TheNada-Channel\MiniGameEngine\MiniGameEngine\Debug\MiniGameEngine.exe
