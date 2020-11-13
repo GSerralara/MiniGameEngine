@@ -1,10 +1,14 @@
 #include <iostream>
+#include <filesystem>
+#include <experimental/filesystem>
 #include "Constants.h"
 #include "Game.h"
 #include "AssetManager.h"
 #include "Components/TransformComponent.h"
 #include "Components/SpriteComponent.h"
 #include "GLM/glm.hpp"
+
+namespace fs = std::experimental::filesystem::v1;
 
 EntityManager manager;
 AssetManager* Game::assetManager = new AssetManager(&manager);
@@ -51,8 +55,12 @@ void Game::Initialize(int width, int height) {
 }
 
 void Game::LoadLevel(int levelNumber) {
+	std::cout << "Current root path is: " << fs::current_path() << '\n';
+	fs::path p = fs::current_path();
+	p.append("\\..\\MiniGameEngine\\Assets\\images\\start.png");
+	std::cout << "Current file path is: " << p << '\n';
 	//start including new assets to the assetManager list
-	std::string textureFilePath = "./heliport.bmp";
+	std::string textureFilePath = p.u8string();//"\\..\\MiniGameEngine\\Assets\\images\\start.png";
 	assetManager->addTexture("tank-img", textureFilePath.c_str());
 	
 	//start including entities and components to them
