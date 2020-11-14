@@ -55,18 +55,29 @@ void Game::Initialize(int width, int height) {
 }
 
 void Game::LoadLevel(int levelNumber) {
-	std::cout << "Current root path is: " << fs::current_path() << '\n';
 	fs::path p = fs::current_path();
 	p.append("\\..\\MiniGameEngine\\Assets\\images\\start.png");
-	std::cout << "Current file path is: " << p << '\n';
+	fs::path p2 = fs::current_path();
+	p2.append("\\..\\MiniGameEngine\\Assets\\images\\chopper-spritesheet.png");
+	fs::path p3 = fs::current_path();
+	p3.append("\\..\\MiniGameEngine\\Assets\\images\\radar.png");
+
 	//start including new assets to the assetManager list
-	std::string textureFilePath = p.u8string();//"\\..\\MiniGameEngine\\Assets\\images\\start.png";
-	assetManager->addTexture("tank-img", textureFilePath.c_str());
-	
+	assetManager->addTexture("start", p.u8string().c_str());
+	assetManager->addTexture("chopper", p2.u8string().c_str());
+	assetManager->addTexture("radar", p3.u8string().c_str());
 	//start including entities and components to them
     Entity& newEntity(manager.AddEntity("projectile"));
     newEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-	newEntity.AddComponent<SpriteComponent>("tank-img");
+	newEntity.AddComponent<SpriteComponent>("start");
+
+	Entity& chopperEntity(manager.AddEntity("chopper"));
+	chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
+	chopperEntity.AddComponent<SpriteComponent>("chopper", 2, 90, true, false);
+
+	Entity& radarEntity(manager.AddEntity("radar"));
+	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
+	radarEntity.AddComponent<SpriteComponent>("radar", 8, 150, false, true);
 }
 
 void Game::ProcessInput() {

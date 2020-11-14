@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include <iostream>
 
 Entity::Entity(EntityManager& manager): manager(manager) {
     this->isActive = true;
@@ -26,4 +27,10 @@ void Entity::Destroy() {
 
 bool Entity::IsActive() const {
     return this->isActive;
+}
+
+void Entity::ListAllComponents() const {
+	for (auto mapElement : componentTypeMap) {
+		//std::cout << "	Componet<" << mapElement.first->name << ">" << std::endl;
+	}
 }
